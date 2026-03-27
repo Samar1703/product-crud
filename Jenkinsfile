@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Install') {
             steps {
-                sh 'pip install -r requirements.txt'
+                sh 'pip install -r requirements.txt --break-system-packages'
             }
         }
         stage('Linting') {
@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Tests') {
             steps {
-                sh 'python -m pytest tests/ -v --cov=app --cov-report=xml:reports/coverage.xml --cov-fail-under=80'
+                sh 'mkdir -p reports && python -m pytest tests/ -v --cov=app --cov-report=xml:reports/coverage.xml --cov-fail-under=80'
             }
         }
         stage('Radon') {
